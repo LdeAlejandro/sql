@@ -1,0 +1,132 @@
+--********************************************************************************************
+--SELECT * FROM Clientes
+--where Nome LIKE 'Alejandro'
+--order by Nome, SobreNome
+--********************************************************************************************
+--Insert into Clientes (Sobrenome, Nome, Email, AceitaComunicados, DataCadastro)
+--values ('Garcia', 'Alejandro', 'alejandro@gmail.com', 1, GETDATE())
+
+--********************************************************************************************
+--insertar omitindo colunas
+
+--insert into Clientes values ('Letzalet', 'Amoroso', 'letzalet@letzalet.com', 0, GETDATE())
+
+--select * from Clientes where Nome = 'Letzalet'
+
+--********************************************************************************************
+
+--atualizar email de um usuario
+--select * from Clientes where Nome = 'Alejandro'
+--update Clientes
+--set Email = 'atualizado@gmail.co', AceitaComunicados = 1
+
+--where Id = 862
+--********************************************************************************************
+--Deletando registro pelo id
+--Delete Clientes
+--where Id = 1143
+--********************************************************************************************
+--begin tran
+--rollback
+----Deletando registro
+--Delete Produtos
+--SELECT * FROM Clientes
+--********************************************************************************************
+----Criar tabela
+--create table Produtos(
+----not null significa que o preenchimento desse campo deve ser obrigatorio (Id sera obrigatorio)
+----identity fara que o banco de dados gerencie o dado do campo id caso nao seja fornecida
+--Id Int identity(1,1) NOT NULL,
+----255 é a quantidade maximo de caracteres permitido na varaivel
+--Nome varchar(255) NOT NULL,
+--Cor varchar (50)NULL,
+----13 é a quantidade de digitos permitidos e 2 a quantidade de casas decimais
+--Preco decimal(13,2)NOT NULL,
+--Tamanho varchar(5) NULL,
+--Genero char(1) NULL,
+--)
+--********************************************************************************************
+----Count
+--Select count (*) QuantidadeProdutos from Produtos
+--select count (*) QuantidadeProdutosTamanhoM from Produtos where Tamanho = 'M'
+--********************************************************************************************
+----Suma
+--select sum(Preco) PrecoTotal From Produtos
+--select sum(Preco) PrecoTotal From Produtos where Tamanho ='M'
+--********************************************************************************************
+--MAX MIN avg average
+--select max(Preco) ProdutoMaisCaro From Produtos
+--select max(Preco) ProdutoMaisCaroTamanhoM From Produtos where Tamanho ='M'
+--select min(Preco) ProdutoMaisBarato From Produtos
+--select min(Preco) ProdutoMaisBaratoTamanhaM From Produtos where Tamanho ='M'
+--select avg(Preco) PrecoMedioProdutos From Produtos
+--********************************************************************************************
+--Concatenando colunas
+--select 
+--	Nome + ' - Cor:' + Cor + ' - ' + Genero NomeProduto
+--From Produtos
+--********************************************************************************************
+----Upper Lower
+--select 
+--	Nome + ' - Cor:' + Cor + ' - ' + Genero NomeProdutoCompleto,
+--	upper (Nome) Nome,
+--	lower(Cor) Cor
+--From Produtos
+--********************************************************************************************
+--Adicionando coluna
+--select * from Produtos
+--alter table Produtos
+--add DataCadastro datetime2
+--update Produtos set DataCadastro = GETDATE()
+--********************************************************************************************
+--Deletar coluna
+--select * from Produtos
+--alter table Produtos
+--drop column DataCadastro
+--********************************************************************************************
+----Formatar data visualizada
+--select 
+--	format (DataCadastro, 'dd-MM-yyyy HH:mm') Data
+--from Produtos
+--Select * from Produtos
+--********************************************************************************************
+--Group By
+--select
+--Tamanho, count(*) Quantidade 
+--from Produtos
+----where Tamanho <> ''| <> signfica es diferente, con esta declaracion indicamos que agrupe Los tamanho que no esten com campos vazios
+--where Tamanho <> ''
+--group by Tamanho
+--order by Quantidade Desc
+--*******************************************************************************************
+----Criar tabelas de endereços e referenciar tabelas
+--create table Enderecos (
+----primary key indica que Id sera a chave primaria da tabela(identificador unico),
+----identity (1,1) parametro para criar coluna com crecimento automatico,
+----o primero 1 significa que começara desde o numero 1,
+----o segundo 1 signfica o valor de crecimento automatico
+--Id int primary key identity (1,1)not null,
+--IdCliente int null,
+--Rua varchar(255),
+--Barrio varchar (255),
+--Cidade varchar (255),
+--Estado char(2)null,
+----Criando restrição informamos a chave referenciada na table Enderecos vai ser IdCliente, y a referencia vai ser do Id da tabela clientes
+--constraint FK_Enderecos_Clientes foreign key (IdCliente)
+--References Clientes(Id)
+--)
+--*******************************************************************************************
+--select * from Clientes 
+--select * from Enderecos
+
+----Adicionando informação na tabela de Enderecos
+--insert into Enderecos values (100, 'Rua teste', 'Barrio teste', 'Cidade test', 'SP')
+----Validando se a referencia esta certa chamando pela mesma
+--select * from Clientes where Id = 1007
+--select * from Enderecos where IdCliente = 1007
+--*******************************************************************************************
+--inner join para trazer junto as informaçoes de diferentes tabelas
+
+--select * from Clientes
+--inner join Enderecos on Clientes.Id = Enderecos.IdCliente
+--where Clientes.Id = 1007
